@@ -1,0 +1,285 @@
+﻿DROP DATABASE IF EXISTS FOOTBALL;
+         CREATE DATABASE FOOTBALL
+		 DEFAULT CHARACTER SET utf8
+		 DEFAULT COLLATE utf8_general_ci;
+		 Use FOOTBALL
+			 
+CREATE TABLE Trainers
+			 ( ID_Trainers INT UNSIGNED NOT NULL UNIQUE primary key,
+			 Name varchar(20),
+			 LastName varchar(20),
+			 DateOfBirth DATE,
+			 SalaryEUR decimal(40),
+			 Nationality varchar (20)
+			 )
+			 ENGINE = InnoDB;
+CREATE TABLE President
+			 ( ID_President INT UNSIGNED NOT NULL UNIQUE primary key,
+			 Name varchar(20),
+			 LastName varchar(20),
+			 DateOfBirth DATE,
+			 Nationality varchar (20)
+			 )
+			 ENGINE = InnoDB;		
+CREATE TABLE Stadium
+			 ( ID_Stadium INT UNSIGNED NOT NULL UNIQUE primary key,
+			 Name varchar(20),
+			 Capacity int,
+			 Adress varchar(100)
+			 )
+			 ENGINE = InnoDB;				 
+CREATE TABLE Teams
+			 ( ID_Team INT UNSIGNED NOT NULL UNIQUE primary key,
+			 Name varchar(20),
+			 Founded DATE,
+			 ID_Trainers INT UNSIGNED NOT NULL,
+			 ID_Stadium INT UNSIGNED NOT NULL,
+			 ID_President INT UNSIGNED NOT NULL,
+FOREIGN KEY (ID_Trainers)
+        REFERENCES   Trainers(ID_Trainers)
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE,
+FOREIGN KEY (ID_Stadium)
+        REFERENCES   Stadium(ID_Stadium)
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE,
+FOREIGN KEY (ID_President)
+        REFERENCES   President(ID_President)
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE		
+		)
+        ENGINE = INNODB;
+CREATE TABLE Players
+             ( ID_Players INT UNSIGNED NOT NULL UNIQUE primary key,
+              Name varchar(20),
+			  LastName varchar(20),
+              DateOfBirth DATE,
+			  SalaryEUR decimal(40),
+			  Nationality varchar (30),
+			  Number int,
+			  Post varchar(20),
+			  ID_Team INT UNSIGNED NOT NULL,
+FOREIGN KEY (ID_Team)
+        REFERENCES   Teams(ID_Team)
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE
+             )
+              ENGINE = InnoDB;
+			
+			  
+			INSERT INTO President VALUES (10,'Хосеп', 'Бортомеу', '1963-02-06', 'Испания');
+			INSERT INTO President VALUES (11,'Флорентино', 'Перес', '1947-03-08', 'Испания');
+			INSERT INTO President VALUES (12,'Насер', 'Ал-Хелайфи', '1973-11-12', 'Франция');
+			INSERT INTO President VALUES (13,'Кирил', 'Домусчиев', '1969-04-18', 'България');
+			SELECT * FROM President;
+			
+				INSERT INTO Trainers VALUES (40,'Ернесто', 'Валверде', '1964-02-09','4','Испания');
+				INSERT INTO Trainers VALUES (41,'Зинедин', 'Зидан', '1972-06-23','10','Франция');
+				INSERT INTO Trainers VALUES	(42,'Унан', 'Ечегойен', '1971-11-03','7','Италия');
+				INSERT INTO Trainers VALUES	(43,'Димитър', 'Димитров', '1959-06-09', '2', 'Зимбабве');
+				SELECT * FROM Trainers;
+				
+				INSERT INTO Stadium VALUES	(20,'Лудогорец Арена', '12.500', 'бул. Васил Левски 43 7200 Разград');
+				INSERT INTO Stadium VALUES	(21,'Парк де Пренс', '48.712', 'Париж Франция');
+				INSERT INTO Stadium VALUES	(22,'Сантяго Бернабеу', '81.044', 'Avenida de Concha Espina 1 E28036 – Madrid Spain');
+				INSERT INTO Stadium VALUES	(23,'Камп Ноу', '99.354', NULL);
+				 SELECT * FROM STADIUM;
+			
+		INSERT INTO Teams VALUES(30, 'ПСЖ', '1970-08-11', '42', '21', '12');
+		INSERT INTO Teams VALUES(31, 'Барселона', '1899-11-29', '40', '23', '10');
+		INSERT INTO Teams VALUES(32, 'Реал Мадрид', '1902-03-06', '41', '22', '11' );
+		INSERT INTO Teams VALUES(33, 'Лудогорец', '2001-06-18', '43', '20', '13');
+		SELECT * FROM Teams;
+	
+INSERT INTO Players VALUES (1,'Неймар','Сантос','1992-02-05','36','Бразилия','10','Нападател', '30');
+INSERT INTO Players VALUES (2,'Кевин','Трап','1990-07-08','6','Германия','1','Вратар', '30');
+INSERT INTO Players VALUES (3,'Мунир','Ел Хадади','1995-09-01','6','Испания','17','Нападател', '31');
+INSERT INTO Players VALUES (4,'Кеплер','Ферейра','1983-02-26','5','Португалия','3','Защитник', '32');
+INSERT INTO Players VALUES (5,'Алфонс','Ареола','1990-06-21','4','Франция','16','Вратар', '30');
+INSERT INTO Players VALUES (6,'Кейлор','Навас','1986-12-15','4','Коста-Рика','1','Вратар', '32');
+INSERT INTO Players VALUES (7,'Леонел','Меси','1987-06-24','40','Испания','11','Нападател','31' );
+INSERT INTO Players VALUES (8,'Тиаго','Силва','1984-09-22','12','Бразилия','2','Защитник', '30');
+INSERT INTO Players VALUES (9,'Преснел','Кимпембе','1988-05-11','5','Франция','3','Защитник', '30');
+INSERT INTO Players VALUES (10,'Маркос','Кореа','1994-05-14','1','Бразилия','5','Защитник', '30');
+INSERT INTO Players VALUES (11,'Марко','Верати','1992-11-05','6','Италия','6','Халф', '30');
+INSERT INTO Players VALUES (12,'Лукаш','Моура','1992-08-13','3','Бразилия','7','Халф', '30');
+INSERT INTO Players VALUES (13,'Тиаго','Мота','1982-08-28','5','Италия','8','Халф', '30');
+INSERT INTO Players VALUES (14,'Ангхел','ди Мария','1988-02-14','7','Аржентина','11','Халф', '30');
+INSERT INTO Players VALUES (15,'Тома','Мюние','1993-03-24','5','Германия','12','Защитник', '30');
+INSERT INTO Players VALUES (16,'Единсон','Кавани','1987-02-14','10','Уругвай','9','Нападател', '30');
+INSERT INTO Players VALUES (17,'Юри','Берчиче','1989-07-24','6','Испания','17','Защитник', '30');
+INSERT INTO Players VALUES (18,'Джовани','Ло Сепсо','1996-04-09','9','Аржентина','18','Халф', '30');
+INSERT INTO Players VALUES (19,'Левин','Курзава','1991-11-22','3','Франция','20','Защитник', '30');
+INSERT INTO Players VALUES (20,'Хатем','Арфа','1987-05-07','3','Франция','21','Халф', '30');
+INSERT INTO Players VALUES (21,'Юлиан','Дракспер','1993-09-20','1','Германия','23','Халф', '30');
+INSERT INTO Players VALUES (22,'Кристофър','Нкунку','1983-04-02','3','Франция','24','Халф', '30');
+INSERT INTO Players VALUES (23,'Адриен','Рабио','1994-03-15','4','Франция','24','Халф', '30');
+INSERT INTO Players VALUES (24,'Хавиер','Пасторе','1989-06-20','5','Аржентина','27','Халф', '30');
+INSERT INTO Players VALUES (25,'Алек','Жоржен','1987-04-16','7','Франция','31','Защитник', '30');
+INSERT INTO Players VALUES (26,'Дани','Алвеш','1983-05-06','7','Бразилия','32','Защитник', '30');
+INSERT INTO Players VALUES (27,'Реми','Дескам','1993-02-15','3','Франция','40','Вратар', '30');
+INSERT INTO Players VALUES (28,'Марк','Стеген','1988-07-20','6','Германия','1','Вратар', '31');
+INSERT INTO Players VALUES (29,'Дъглас','Перейра','1990-08-06','5','Бразилия','16','Защитник', '31');
+INSERT INTO Players VALUES (30,'Жерар','Пике','1987-02-02','6','Испания','3','Защитник', '31');
+INSERT INTO Players VALUES (31,'Иван','Ракитич','1988-03-10','8','Хърватияv','4','Халф', '31');
+INSERT INTO Players VALUES (32,'Серхио','Бускетс','1988-06-16','5','Испания','5','Халф', '31');
+INSERT INTO Players VALUES (33,'Денис','Суарес','1988-02-11','7','Испания','6','Халф', '31');
+INSERT INTO Players VALUES (34,'Арда','Туран','1987-01-30','4','Турция','7','Халф', '31');
+INSERT INTO Players VALUES (35,'Андрес','Иниеста','1984-05-11','5','Испания','8','Халф', '31');
+INSERT INTO Players VALUES (36,'Рафиня','Алкантара','1993-02-12','7','Бразилия','12','Халф', '31');
+INSERT INTO Players VALUES (37,'Хавиер','Масчерано','1984-06-08','6','Аржентина','14','Защитник', '31');
+INSERT INTO Players VALUES (38,'Жерард','Деупофеу','1989-09-12','3','Испания','16','Крило', '31');
+INSERT INTO Players VALUES (39,'Кристиано','Роналдо','1985-02-05','38','Португалия','7','Нападател', '32');
+INSERT INTO Players VALUES (40,'Жорди','Алба','1989-03-21','3','Испания','18','Защитник', '31');
+INSERT INTO Players VALUES (41,'Люка','Дин','1993-07-20','3','Франция','19','Защитник', '31');
+INSERT INTO Players VALUES (42,'Сержи','Роберто','1992-02-07','5','Испания','20','Халф', '31');
+INSERT INTO Players VALUES (43,'Андре','Гомеш','1991-08-16','4','Португалия','21','Халф', '31');
+INSERT INTO Players VALUES (44,'Алейш','Видал','1984-05-17','4','Испания','22','Халф', '31');
+INSERT INTO Players VALUES (45,'Самуел','Умтити','1985-05-24','3','Франция','23','Защитник', '31');
+INSERT INTO Players VALUES (46,'Жереми','Матийо','1983-10-29','5','Франция','24','Защитник', '31');
+INSERT INTO Players VALUES (47,'Жорди','Масип','1992-03-02','5','Испания','25','Вратар', '31');
+INSERT INTO Players VALUES (48,'Луис','Суарес','1987-09-01','1','Испания','17','Нападател', '31');
+INSERT INTO Players VALUES (49,'Рафаел','Варан','1993-04-23','4','Франция','5','Защитник', '32');
+INSERT INTO Players VALUES (50,'Килиан','Мбапе','1998-12-20','18','Франция','12','Нападател', '30');
+INSERT INTO Players VALUES (51,'Серхио','Рамос','1986-03-30','10','Испания','4','Защитник', '32');
+INSERT INTO Players VALUES (52,'Хосе','Иглесиас','1990-01-18','3','Испания','6','Защитник', '32');
+INSERT INTO Players VALUES (53,'Тони','Крос','1990-01-04','12','Германия','8','Полузащитник', '32');
+INSERT INTO Players VALUES (54,'Карим','Бензема','1987-12-19','8','Франция','9','Нападател', '32');
+INSERT INTO Players VALUES (55,'Хамес','Родригес','1991-07-12','4','Колумбия','11','Халф', '32');
+INSERT INTO Players VALUES (56,'Гарет','Бейл','1989-07-16','15','Уелс','11','Полузащитник', '32');
+INSERT INTO Players VALUES (57,'Марсело','Жуниор','1988-05-12','5','Бразилия','12','Защитник', '32');
+INSERT INTO Players VALUES (58,'Кико','Касия','1987-09-15','3','Испания','13','Вратар', '32');
+INSERT INTO Players VALUES (59,'Карлош','Каземиро','1992-02-12','4','Бразилия','14','Полузащитник', '32');
+INSERT INTO Players VALUES (60,'Даниел','Карвахал','1992-01-11','5','Испания','15','Полузащитник', '32');
+INSERT INTO Players VALUES (61,'Матео','Ковачич','1994-05-06','3','Хърватия','16','Полузащитник', '32');
+INSERT INTO Players VALUES (62,'Лука','Модрич','1985-09-09','7','Хърватия','19','Халф', '32');
+INSERT INTO Players VALUES (63,'Франсиско','Суарес','1992-04-21','25','Испания','22','Полузащитник', '32');
+INSERT INTO Players VALUES (64,'Данило','Силва','1991-07-15',NULL,'Бразилия','23','Защитник', '32');
+SELECT * FROM Players;
+		
+				
+	SELECT * FROM Trainers
+Where Name='Унан';
+Update Trainers
+SET Nationality = 'Испания'
+Where Name = 'Унан'; 
+	SELECT * FROM Trainers
+	Where Name='Унан';	
+		SELECT Name From Trainers
+		Where NAME LIKE 'У%';
+		UPDATE Trainers
+		SET NAME = 'Унаи'
+		WHERE NAME = 'Унан';
+		SELECT NAME FROM TRAINERS WHERE NAME LIKE 'У%';	 
+			SELECT Name, DateOfBirth, CURDATE(),
+			( YEAR(CURDATE()) - YEAR(DateOfBirth) ) -
+			( RIGHT(CURDATE(),5) < RIGHT(DateOfBirth,5) )
+			AS age FROM Players;
+SELECT NAME, LastName, SalaryEUR From Players
+ORDER BY Name  
+Limit 5 OFFSET 10;
+
+#Зареждане на данни от външен файл
+LOAD DATA LOCAL INFILE 'F:/DataBase/Ludogorec.txt'  INTO TABLE Players;
+SELECT * FROM Players;
+
+#Промяна на националността на треньора...
+SELECT Name, Nationality From TRAINERS;
+Update TRAINERS
+Set Nationality = 'България' 
+WHERE NAME = 'Димитър';
+SELECT Name, Nationality From TRAINERS;
+
+#Експорт (не работи)
+SELECT * FROM Teams INTO OUTFILE "F:/DataBase/Teams.txt";
+
+#Създаване на  INNER JOIN
+#Подреждане по заплата низходящ ред 
+SELECT  Players.ID_Players AS 'Код на играча',
+		Players.Name 	AS 	'Име на играча',
+		Teams.Name 		AS 	'Име на отбора',
+		Players.SalaryEUR AS 'Висока заплата' 
+FROM Players, Teams
+WHERE Players.ID_Team = Teams.ID_Team
+ORDER BY SalaryEUR DESC;
+
+#Създаване на SELF JOIN 
+#за извеждане на всички играчи от ИСПАНИЯ
+SELECT 
+	CONCAT (p.LastName, ', ', p.Name) AS 'Играч(име,фамилия)',
+	CONCAT (p.Nationality) AS 'Гражданство'
+FROM
+	Players AS p,
+	Players AS p1
+WHERE 
+	p.LastName = p1.LastName
+AND		(p.Name = p1.Name)
+AND	 	(p1.Nationality = "Испания");
+
+#Създаване на NATURAL JOIN с цел да се изведе всеки отбор и
+#играчите, които играят в него
+#не работи с псевдоними.
+SELECT 
+		Teams.Name AS 'Отбор',Players.Name AS 'Играч', 
+		Players.Number AS 'Номер', Players.Post AS 'Позиция', 
+		Trainers.Name AS 'Траньор', President.Name AS 'Президент', 
+		Stadium.Name AS 'Стадион'
+FROM	
+		Players ,Teams ,Trainers , President , Stadium
+WHERE	
+		Players.ID_Team = Teams.ID_Team
+AND		(Teams.ID_Trainers = Trainers.ID_Trainers)
+AND		(Teams.ID_President = President.ID_President)
+AND		(Teams.ID_Stadium = Stadium.ID_Stadium)
+ORDER BY Teams.Name;
+		
+#Създаване на потребители
+ CREATE USER 
+  trainer1@localhost IDENTIFIED BY 'XPSG123',
+  trainer2@localhost identified by 'uFCB213',
+  trainer3@localhost identified by 'EMCF321',
+  trainer4@localhost identified by 'NPCFL421',
+  president1@localhost1 identified by 'APSG321',
+  president2@localhost1 identified by 'TFCB312',
+  president3@localhost1 identified by 'TNMCF123',
+  president4@localhost1 identified by 'APCFL124';
+SELECT host, user
+FROM mysql.user;
+
+#Промяна на правата на вече създадените потребители
+REVOKE ALL PRIVILEGES ON *.*
+FROM trainer1@localhost ,
+  trainer2@localhost ,
+  trainer3@localhost ,
+  trainer4@localhost;
+SHOW GRANTS FOR trainer1@localhost;
+GRANT SELECT, INSERT ON football.*
+TO trainer1@localhost ,
+  trainer2@localhost ,
+  trainer3@localhost ,
+  trainer4@localhost;
+SELECT host, user
+FROM mysql.user;
+SHOW GRANTS FOR trainer1@localhost;
+
+#Създаване на DUMP ФАЙЛ ЧРЕЗ CMD.
+cd "C:/Program files/MySQL/MySQL Server 5.7/bin"
+mysqldump -h localhost -u root -p football>F:\DataBase\Footbal_DUMP.sql
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
